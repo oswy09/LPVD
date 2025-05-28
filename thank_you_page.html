@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you page</title>
+    <meta name="description" content="...">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.woff2" type="font/woff2">
+    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.woff" type="font/woff">
+    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.ttf" type="font/truetype">
+    <link rel="stylesheet" href="fonts/Publico_Banner_Web_Bold_Regular.woff2" type="font/woff2">
+    <link rel="stylesheet" href="fonts/Publico_Banner_Web_Bold_Regular.woff" type="font/woff">
+    <link rel="stylesheet" href="assets/styles-icons.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content=" xxxxxxxx">
+    <meta property="og:title" content="xxxxxxxx">
+    <meta property="og:description" content="xxxxxxxx">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="xxxxxxxx">
+    <meta property="og:image" content="https:xxxx.jpg">
+    <script type="application/ld+json">
+        {
+            @context: "https://schema.org",
+            "@type": "xxxxxxxx",
+            "name": "xxxxxxxx",
+            "url": "https://xxxxxxxx",
+            "description": "xxxxxxxx",
+            "logo": "https://xxxxxxxx/logo.png"
+          
+        }
+        </script>
+        
+
+</head>
+
+<style>
+
+
+
+   
+/* Definición de la fuente Publico Headline Bold */
+@font-face {
+    font-family: 'Publico Headline Web';
+    src: url('./Fonts/PublicoHeadline-Bold-Web.woff2') format('woff2'),
+         url('./Fonts/PublicoHeadline-Bold-Web.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  /* Definición de la fuente Source Sans Pro Regular */
+  @font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/SourceSansPro-Regular.woff2') format('woff2');  
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  /* Definición de la fuente Source Sans Pro SemiBold */
+  @font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/SourceSansPro-SemiBold.woff2') format('woff2');  
+    font-weight: 600;  
+    font-style: normal;
+  }
+  
+  /* Aplicar Publico Headline a los títulos */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Publico Headline Web', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  /* Aplicar Source Sans Pro al body y otros textos */
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400; /* Regular */
+  }
+  
+  p, a, li, span, div {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+  }
+
+
+
+  body {
+    
+    margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* Alinea los elementos del body en columna */
+    justify-content: flex-start; /* Alinea los elementos desde la parte superior */
+    align-items: center; /* Centra horizontalmente los elementos del body */
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* El header ocupa todo el ancho */
+    box-sizing: border-box; /* Incluye el padding y el border en el ancho */
+}
+
+.header .logo img {
+    max-height: 50px;
+}
+
+.content-message {
+    background-color: #fff;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem; 
+    margin-bottom: 6rem;
+}
+
+.icon-axa-fu039 {
+    color: #28a745;  
+    font-size: 3em;
+}
+
+
+        .message-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .message-body {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .message-link {
+            color: #00008F;
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        .message-link:hover {
+            text-decoration: underline;
+        }
+
+        .boton-info {
+    display: inline-block;
+    background-color: #00008F; 
+    color: #fff;  
+    padding: 16px 50px;  
+    border: none;  
+    cursor: pointer;  
+    font-size: 14px;  
+    margin-top: 20px; 
+    box-shadow: 0px -3px 0px 0px #00006D inset;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.boton-info:hover {
+    background-color: #1F1F9C;  
+}
+
+
+@media (max-width: 768px) {
+    .content-message {
+        width: 85%; /* O el porcentaje que desees para dejar espacio a los lados */
+        max-width: none; /* Elimina el ancho máximo para que se adapte al 90% */
+        margin-left: auto; /* Centra horizontalmente con el width del 90% */
+        margin-right: auto;
+        margin-top: 3rem; /* Ajusta el margen superior si es necesario */
+        padding: 20px; /* Reduce el padding para pantallas más pequeñas */
+    }
+}
+
+.footer {
+    background-color: #4976BA;
+    color: #fff;
+    padding: 2rem;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    width: 80%;
+}
+
+.footer-column {
+    width: 30%;
+    padding: 0 1rem;
+}
+
+.footer-column h4 {
+    font-size: 1.2rem;
+    font-family: 'Source Sans Pro';
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+.footer-column ul {
+    list-style: none;
+    text-align: center;
+    padding: 1px;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #fff;
+}
+
+.footer-column ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer-column p {
+    text-align: center;
+    color: #fff;
+}
+
+.footer-social {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.footer-social p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.social-icons a {
+    margin: 0 0.5rem;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #cbd5e0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.footer-bottom p {
+    color: #fff;
+}
+
+.salud-footer {
+    position: absolute;
+    right: 30px;
+}
+
+.mobile-dropdown .dropdown-list {
+    padding-left: 0;
+}
+
+.dropdown-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-arrow {
+    margin-left: 5px;
+    font-size: 0.8em;
+    display: none; /* Oculta la flecha por defecto */
+}
+
+/* ================================ */
+/* Responsive Footer                */
+/* ================================ */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 1rem;
+        text-align: left; /* Centra el texto de las columnas en móvil */
+    }
+
+    .footer-column {
+        width: 100%;
+        margin-bottom: 0;
+        border-bottom: 1px solid #5e85b8;
+        text-align: left; /* Alinea el texto de las columnas a la izquierda en móvil */
+    }
+
+    .footer-column:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .footer-column h4 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        text-align: left; /* Asegura la alineación izquierda del título */
+    }
+
+    .footer-column ul {
+        text-align: left;
+        padding-left: 1rem;
+        display: none; /* Oculta las listas en móvil por defecto */
+    }
+  
+.footer-column ul li,
+.footer-column p {
+    text-align: left;
+}
+
+    .footer-column.open ul {
+        display: block; /* Muestra la lista cuando la clase 'open' está activa */
+    }
+
+   
+
+    .footer-social {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-social p {
+        margin-bottom: 0.5rem;
+    }
+
+    .social-icons {
+        text-align: center;
+    }
+
+    .dropdown-arrow {
+        display: inline-block; /* Muestra la flecha solo en móvil */
+    }
+    .salud-footer {
+        position: static;
+        margin-top: 0;
+    }
+}
+
+
+</style>
+
+<body>
+
+
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            
+            <img src="./images/axa_colpatria_logo.svg" alt="Logo AXA COLPATRIA" style="width: 100px; height: auto; display: block;">
+        </div>
+    </header>
+
+    <div class="content-message">
+        <i class="icon-axa-fu039 icon-check"></i>
+        <h1 class="message-title">Gracias por confiar en nosotros</h1>
+        <p class="message-body">
+            Hemos recibido tus datos, pronto nos contactaremos contigo.<br>
+            Mientras esperas, te invitamos a conocer más de nuestra oferta de seguros <a href="#" class="message-link">aquí</a>.
+        </p>
+        <a href="#" class="boton-info">Home → </a>
+    </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div style="left:30px; position: absolute;"><img src="images/superfinanciera.png" alt="Superfinanciera"/></div>
+    <div class="footer-container">
+        <div class="footer-column mobile-dropdown">
+            <h4 class="dropdown-title">AXA COLPATRIA y tú <i class="icon-axa-fu006 dropdown-arrow"></i></h4>
+            <ul class="dropdown-list">
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-sac">Sistema de atención al consumidor financiero</a></li>
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-red-de-oficinas">Red de oficinas</a></li>
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-defensoria-del-consumidor">Defensoría del consumidor</a></li>
+            </ul>
+        </div>
+        <div class="footer-column mobile-dropdown">
+            <h4 class="dropdown-title">Enlaces de interés <i class="icon-axa-fu006 dropdown-arrow"></i></h4>
+            <ul class="dropdown-list">
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-politica-seguridad">Políticas del consumidor</a></li>
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-terminos">Términos y condiciones de uso</a></li>
+                <li><a href="https://www.axacolpatria.co/portalpublico-lf-proteccion-de-datos">Protección de datos</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Contáctanos</h4>
+            <p>#247 desde tu celular</p>
+        </div>
+    </div>
+    <div class="footer-social">
+        <div class="social-icons">
+            <div class="salud-footer">
+                <img src="images/supersalud.png" alt="Vigilado Supersalud"/>
+            </div>
+            <p>SÍGUENOS
+                <a class="px-1" rel="nofollow" target="_blank" title="Facebook" href="http://www.facebook.com/AXACOLPATRIA">
+                    <i class="icon-axa-fu009"></i>
+                </a>
+                </a>
+                <a class="px-1" rel="nofollow" target="_blank" title="Twitter" href="http://twitter.com/AXACOLPATRIA">
+                    <i class="icon-axa-fu010"></i>
+                </a>
+                <a class="px-1" rel="nofollow" target="_blank" title="Youtube" href="https://www.youtube.com/channel/UCEFpfcVy3UYFXEOdiOUnhag">
+                    <i class="icon-axa-fu011"></i>
+                </a>
+                <a class="px-1" rel="nofollow" target="_blank" title="Linkedin" href="http://www.linkedin.com/company/axa-colpatria">
+                    <i class="icon-axa-fu012"></i>
+                </a>
+                <a class="px-1" rel="nofollow" target="_blank" title="Instagram" href="https://www.instagram.com/axacolpatriaoficial/">
+                    <i class="icon-axa-fu013"></i>
+                </a></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright AXA COLPATRIA Seguros de Vida S.A 2025 ©</p>
+    </div>
+</footer>
+   <script>
+// Dropdown footer
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownColumns = document.querySelectorAll('.mobile-dropdown');
+
+    dropdownColumns.forEach(currentColumn => {
+        const title = currentColumn.querySelector('.dropdown-title');
+        const list = currentColumn.querySelector('.dropdown-list');
+
+        if (title && list) {
+            title.addEventListener('click', function() {
+                // Cierra cualquier otro dropdown que esté abierto
+                dropdownColumns.forEach(otherColumn => {
+                    if (otherColumn !== currentColumn && otherColumn.classList.contains('open')) {
+                        otherColumn.classList.remove('open');
+                    }
+                });
+                // Abre o cierra el dropdown actual
+                currentColumn.classList.toggle('open');
+            });
+        }
+    });
+});
+
+   </script>
+ 
+  
+</body>
+</html>
