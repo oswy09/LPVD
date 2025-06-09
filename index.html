@@ -1533,24 +1533,35 @@ select:not(#Método\ de\ contacto) {
     
             // Función para validar un campo
             function validarCampo(campo) {
-                const errorSpan = document.getElementById('error-' + campo.id.replace('Metodo_Contacto', 'tipo-contacto'));
+                // Obtener el ID del span de error. Si el campo es el input hidden del método de contacto, usa 'tipo-contacto'
+                const errorSpanId = (campo.id === 'Metodo_Contacto') ? 'error-tipo-contacto' : 'error-' + campo.id;
+                const errorSpan = document.getElementById(errorSpanId);
                 let mensajeError = '';
     
                 if (campo.id === 'Metodo_Contacto') {
                     const opcionesMarcadas = Array.from(checkBoxes).filter(cb => cb.checked);
                     if (opcionesMarcadas.length === 0) {
                         mensajeError = 'Debe seleccionar al menos un método de contacto';
-                        dropdownSimulado.classList.add('error');
-                        dropdownSimulado.classList.remove('valid');
+                        if (dropdownSimulado) {
+                            dropdownSimulado.classList.add('error');
+                            dropdownSimulado.classList.remove('valid');
+                        }
                     } else {
-                        dropdownSimulado.classList.remove('error');
-                        dropdownSimulado.classList.add('valid');
+                        if (dropdownSimulado) {
+                            dropdownSimulado.classList.remove('error');
+                            dropdownSimulado.classList.add('valid');
+                        }
                     }
-                } else if (!campo.value) {
+                } else if (campo.type === 'checkbox') {
+                    if (!campo.checked) {
+                        mensajeError = 'Debe aceptar este campo';
+                    }
+                }
+                else if (!campo.value.trim()) { // .trim() para campos de texto
                     mensajeError = 'Este campo es obligatorio';
-                } else if (campo.id === 'correo' && !campo.value.includes('@')) {
+                } else if (campo.id === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(campo.value)) {
                     mensajeError = 'El correo no cumple con un formato válido';
-                } else if (campo.id === 'telefono' && isNaN(campo.value)) {
+                } else if (campo.id === 'telefono' && !/^\d+$/.test(campo.value)) {
                     mensajeError = 'El teléfono debe contener solo números';
                 }
     
@@ -1578,7 +1589,7 @@ select:not(#Método\ de\ contacto) {
                 if (opcionesMarcadas.length === checkBoxes.length) {
                     seleccionadoSpan.textContent = 'Todos';
                 } else if (opcionesMarcadas.length > 0) {
-                    seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
+                    seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
                 } else {
                     seleccionadoSpan.textContent = 'Seleccionar';
                 }
@@ -1602,7 +1613,7 @@ select:not(#Método\ de\ contacto) {
                 });
     
                 // Evento para actualizar selección al cambiar checkboxes
-                dropdownLista.addEventListener('click', (event) => {
+                dropdownLista.addEventListener('change', (event) => { // Cambiado a 'change' para mejor manejo de checkboxes
                     if (event.target.type === 'checkbox') {
                         const opcionesMarcadas = Array.from(checkBoxes)
                             .filter(cb => cb.checked)
@@ -1611,7 +1622,7 @@ select:not(#Método\ de\ contacto) {
                         if (opcionesMarcadas.length === checkBoxes.length) {
                             seleccionadoSpan.textContent = 'Todos';
                         } else if (opcionesMarcadas.length > 0) {
-                            seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
+                            seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
                         } else {
                             seleccionadoSpan.textContent = 'Seleccionar';
                         }
@@ -1638,7 +1649,12 @@ select:not(#Método\ de\ contacto) {
                 let valido = true;
     
                 camposRequeridos.forEach(campo => {
-                    if (!validarCampo(campo)) {
+                    // Validar también los campos de checkbox y el input hidden
+                    if (campo.type === 'checkbox' || campo.id === 'Metodo_Contacto') {
+                        if (!validarCampo(campo)) {
+                            valido = false;
+                        }
+                    } else if (!validarCampo(campo)) {
                         valido = false;
                     }
                 });
@@ -1649,19 +1665,61 @@ select:not(#Método\ de\ contacto) {
                 }
     
                 console.log('Formulario enviado');
+                // Aquí puedes añadir tu lógica para enviar los datos del formulario, por ejemplo, con fetch o XMLHttpRequest
+    
+                // Mostrar mensaje de éxito y ocultar/mostrar elementos
+                const mensajeExito = document.createElement('div');
+                mensajeExito.className = 'mensaje-exito';
+                mensajeExito.textContent = '¡Gracias! Tu mensaje ha sido enviado correctamente.';
+                formulario.parentNode.insertBefore(mensajeExito, formulario.nextSibling); // Insertar después del formulario
+                
+                formulario.reset(); // Limpiar el formulario
+                // Reestablecer la apariencia de los campos
+                formulario.querySelectorAll('.error, .valid').forEach(el => {
+                    el.classList.remove('error', 'valid');
+                });
+                formulario.querySelectorAll('.error-message').forEach(el => {
+                    el.textContent = '';
+                });
+                 if (dropdownSimulado) {
+                    dropdownSimulado.classList.remove('error', 'valid');
+                }
+                inicializarSeleccion(); // Reestablecer el dropdown simulado
+    
+                // Ocultar formulario y mostrar botón "Quiero unirme"
                 if (formContainer && botonUnirme) {
                     formContainer.classList.add('oculto');
                     botonUnirme.classList.remove('oculto');
                 }
+    
+                setTimeout(() => {
+                    mensajeExito.remove(); // Eliminar el mensaje de éxito después de unos segundos
+                }, 5000);
             });
     
             // Validación en tiempo real
-            const campos = formulario.querySelectorAll('input, select, textarea');
+            const campos = formulario.querySelectorAll('input:not([type="checkbox"]), select, textarea');
             campos.forEach(campo => {
                 campo.addEventListener('blur', function() {
                     validarCampo(this);
                 });
+                campo.addEventListener('input', function() { // Validar mientras el usuario escribe
+                    validarCampo(this);
+                });
             });
+    
+            // Validar los checkboxes y el input hidden del método de contacto
+            const checkboxesForm = formulario.querySelectorAll('input[type="checkbox"]');
+            checkboxesForm.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    validarCampo(this);
+                });
+            });
+    
+            if (inputHidden) {
+                // Aunque es un hidden, si su valor se actualiza por JS, se podría validar al momento
+                // pero ya se hace a través del evento 'change' en el dropdownLista
+            }
     
             // Inicializar selección al cargar la página
             inicializarSeleccion();
@@ -1669,27 +1727,36 @@ select:not(#Método\ de\ contacto) {
     
         // Manejo del formulario flotante
         if (formContainer && botonUnirme && cerrarFormulario) {
-            formContainer.classList.remove("oculto");
-            botonUnirme.classList.add("oculto");
+            // Decidir si el formulario debe estar visible o no al cargar la página
+            // Aquí lo dejaremos visible al principio para que el usuario interactúe con él.
+            // Si quieres que inicie oculto, puedes añadir formContainer.classList.add("oculto"); aquí
+            formContainer.classList.remove("oculto"); // Asegúrate de que no esté oculto al inicio
+            botonUnirme.classList.add("oculto"); // Oculta el botón "Quiero unirme" al inicio
     
             cerrarFormulario.addEventListener("click", function () {
                 formContainer.classList.add("oculto");
                 botonUnirme.classList.remove("oculto");
             });
     
+            // Cambiado para que el formulario se oculte al hacer scroll Y el botón aparezca
+            // Y cuando el scroll vuelva a la parte superior, el formulario vuelva a aparecer
             window.addEventListener("scroll", function () {
-                if (window.scrollY > 200) {
-                    formContainer.classList.add("oculto");
-                    botonUnirme.classList.remove("oculto");
-                } else {
-                    formContainer.classList.remove("oculto");
-                    botonUnirme.classList.add("oculto");
+                if (window.scrollY > 200) { // Si el scroll supera los 200px
+                    if (!formContainer.classList.contains("oculto")) { // Solo si no está oculto
+                        formContainer.classList.add("oculto");
+                        botonUnirme.classList.remove("oculto");
+                    }
+                } else { // Si el scroll está cerca del inicio de la página
+                    if (formContainer.classList.contains("oculto")) { // Solo si está oculto
+                        formContainer.classList.remove("oculto");
+                        botonUnirme.classList.add("oculto");
+                    }
                 }
             });
     
             botonUnirme.addEventListener("click", function () {
-                formContainer.classList.toggle("oculto");
-                botonUnirme.classList.toggle("oculto");
+                formContainer.classList.remove("oculto");
+                botonUnirme.classList.add("oculto");
             });
         }
     
@@ -1711,59 +1778,47 @@ select:not(#Método\ de\ contacto) {
             }
         });
     
-        // Optimizaciones para iOS
+        // Optimización clave para iOS: Manejo del viewport para el teclado
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isMobile = window.innerWidth <= 768;
-    
+        
         if (isIOS) {
-            // Ajustar tamaño de fuente para evitar zoom en iOS
-            const inputs = document.querySelectorAll('input, select, textarea');
-            const miFormulario = document.getElementById('miFormulario');
+            const viewport = document.querySelector('meta[name="viewport"]');
+            const initialViewportContent = viewport ? viewport.getAttribute('content') : '';
     
+            // Asegura que los inputs tengan un tamaño de fuente que evite el zoom no deseado
+            const inputs = document.querySelectorAll('input:not([type="checkbox"]), select, textarea');
             inputs.forEach(input => {
-                input.style.fontSize = '16px';
+                input.style.fontSize = '16px'; // Esto ayuda a iOS a no hacer zoom automático
+            });
     
-                // Ajustar scroll cuando el teclado aparece
-                if (miFormulario) {
-                    input.addEventListener('focus', function() {
-                        setTimeout(() => {
-                            const inputRect = this.getBoundingClientRect();
-                            const containerRect = miFormulario.getBoundingClientRect();
-    
-                            if (inputRect.bottom > containerRect.bottom - 50) {
-                                const scrollTop = miFormulario.scrollTop + (inputRect.bottom - containerRect.bottom) + 60;
-                                miFormulario.scrollTo({
-                                    top: scrollTop,
-                                    behavior: 'smooth'
-                                });
-                            }
-                        }, 100);
-                    });
-                }
-    
-                // Controlar el viewport para evitar problemas con el zoom
+            // Eventos de foco y blur para manejar el viewport en iOS
+            const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
+            formInputs.forEach(input => {
                 input.addEventListener('focus', function() {
-                    const viewport = document.querySelector('meta[name="viewport"]');
                     if (viewport) {
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        // Permite al usuario escalar y evita el máximo de escala fijo para que el teclado funcione
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
                     }
+                    // Opcional: Ajustar el scroll para que el campo enfocado esté visible
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300); // Pequeño retraso para que el teclado tenga tiempo de aparecer
                 });
     
                 input.addEventListener('blur', function() {
-                    const viewport = document.querySelector('meta[name="viewport"]');
                     if (viewport) {
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                        // Vuelve a la configuración original del viewport al desenfocar
+                        // Usar initialViewportContent si lo capturaste, o una configuración predeterminada
+                        viewport.setAttribute('content', initialViewportContent || 'width=device-width, initial-scale=1.0');
                     }
                 });
             });
-        }
     
-        // Mejorar el manejo de eventos táctiles en iOS
-        if (isIOS) {
+            // Mejorar el manejo de eventos táctiles en iOS (ya lo tenías, lo mantengo)
             document.addEventListener('touchstart', function() {}, { passive: true });
             document.addEventListener('touchmove', function() {}, { passive: true });
         }
     });
-    </script>
+</script>
     </body>
     </html>
