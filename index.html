@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Seguro de Vida Deudor AXA COLPATRIA | Póliza VIM Deudor</title>
     <meta name="description" content="Adquiere el seguro de Vida Deudor de AXA COLPATRIA. Cubre el saldo de tu deuda caso de fallecimiento o incapacidad total y permanente. | Póliza VIM Deudor">
     <link rel="stylesheet" href="styles.css">
@@ -692,7 +692,7 @@ textarea {
     margin-top: 20px;
 }
 
-/* Estilos para inputs y formularios */
+/* Desktop styles */
 input,
 select,
 textarea {
@@ -702,8 +702,25 @@ textarea {
     border-radius: 0.375rem;
     margin-top: 0.25rem;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 14px; /* Desktop normal */
     -webkit-appearance: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    #miFormulario input,
+    #miFormulario select,
+    #miFormulario textarea {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        border-radius: 0.375rem;
+    }
+
+    .dropdown-header {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        border-radius: 0.375rem;
+    }
 }
 
 .floating-button {
@@ -1557,11 +1574,59 @@ select:not(#Método\ de\ contacto) {
 </footer>
    
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animación step section
-        const steps = document.querySelectorAll('.step');
-        const lineProgress = document.querySelector('.line-progress');
-        const contSix = document.querySelector('.cont-six');
+document.addEventListener('DOMContentLoaded', function() {
+    // Optimizaciones para iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isMobile = window.innerWidth <= 768;
+
+    if (isIOS) {
+        // Ajustar tamaño de fuente para evitar zoom en iOS
+        const inputs = document.querySelectorAll('input, select, textarea');
+        const miFormulario = document.getElementById('miFormulario');
+
+        inputs.forEach(input => {
+            input.style.fontSize = '16px';
+
+            // Ajustar scroll cuando el teclado aparece
+            if (miFormulario) {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        const inputRect = this.getBoundingClientRect();
+                        const containerRect = miFormulario.getBoundingClientRect();
+
+                        if (inputRect.bottom > containerRect.bottom - 50) {
+                            const scrollTop = miFormulario.scrollTop + (inputRect.bottom - containerRect.bottom) + 60;
+                            miFormulario.scrollTo({
+                                top: scrollTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 100);
+                });
+            }
+
+            // Controlar el viewport para evitar problemas con el zoom
+            input.addEventListener('focus', function() {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                }
+            });
+
+            input.addEventListener('blur', function() {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                }
+            });
+        });
+    }
+
+    // Mejorar el manejo de eventos táctiles en iOS
+    if (isIOS) {
+        document.addEventListener('touchstart', function() {}, { passive: true });
+        document.addEventListener('touchmove', function() {}, { passive: true });
+    }
     
         function showStep(index) {
             if (index < steps.length) {
