@@ -1780,24 +1780,36 @@ select:not(#Método\ de\ contacto) {
     
         // Optimización clave para iOS: Manejo del viewport para el teclado
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isMobile = window.innerWidth <= 768; // User's suggested check
         
-        if (isIOS) {
-            const viewport = document.querySelector('meta[name="viewport"]');
-            const initialViewportContent = viewport ? viewport.getAttribute('content') : '';
+        // Capturar el contenido inicial del viewport al cargar la página
+        const viewport = document.querySelector('meta[name="viewport"]');
+        const initialViewportContent = viewport ? viewport.getAttribute('content') : '';
     
+        if (isIOS && isMobile) { // Apply only for iOS mobile as suggested
+            console.log('iOS móvil detectado - Aplicando optimizaciones de teclado.');
+            
             // Asegura que los inputs tengan un tamaño de fuente que evite el zoom no deseado
-            const inputs = document.querySelectorAll('input:not([type="checkbox"]), select, textarea');
-            inputs.forEach(input => {
+            // Selecciona inputs solo dentro del formulario para no afectar otros inputs en la página
+            const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
+            formInputs.forEach(input => {
                 input.style.fontSize = '16px'; // Esto ayuda a iOS a no hacer zoom automático
             });
+
+            // Aplicar también al dropdown personalizado si existe
+            const dropdownHeader = document.querySelector('.dropdown-header');
+            if (dropdownHeader) {
+                dropdownHeader.style.fontSize = '16px';
+            }
     
             // Eventos de foco y blur para manejar el viewport en iOS
-            const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
+            // Estos eventos solo deben aplicarse a los inputs del formulario
             formInputs.forEach(input => {
                 input.addEventListener('focus', function() {
                     if (viewport) {
-                        // Permite al usuario escalar y evita el máximo de escala fijo para que el teclado funcione
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
+                        // CRÍTICO: Permitir al usuario escalar para que el teclado funcione
+                        // Cambiado de user-scalable=no a user-scalable=yes
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0');
                     }
                     // Opcional: Ajustar el scroll para que el campo enfocado esté visible
                     setTimeout(() => {
@@ -1808,8 +1820,7 @@ select:not(#Método\ de\ contacto) {
                 input.addEventListener('blur', function() {
                     if (viewport) {
                         // Vuelve a la configuración original del viewport al desenfocar
-                        // Usar initialViewportContent si lo capturaste, o una configuración predeterminada
-                        viewport.setAttribute('content', initialViewportContent || 'width=device-width, initial-scale=1.0');
+                        viewport.setAttribute('content', initialViewportContent);
                     }
                 });
             });
