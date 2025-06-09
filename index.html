@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Seguro de Vida Deudor AXA COLPATRIA | Póliza VIM Deudor</title>
     <meta name="description" content="Adquiere el seguro de Vida Deudor de AXA COLPATRIA. Cubre el saldo de tu deuda caso de fallecimiento o incapacidad total y permanente. | Póliza VIM Deudor">
     <link rel="stylesheet" href="styles.css">
@@ -62,60 +62,58 @@
 /* Definición de la fuente Publico Headline Bold */
 @font-face {
     font-family: 'Publico Headline Web';
-    src: url('./Fonts/PublicoHeadline-Bold-Web.woff2') format('woff2'),
-         url('./Fonts/PublicoHeadline-Bold-Web.woff') format('woff');
+    src: url('./fonts/PublicoHeadline-Bold-Web.woff2') format('woff2'),
+         url('./fonts/PublicoHeadline-Bold-Web.woff') format('woff');
     font-weight: 700;
     font-style: normal;
-  }
+}
   
-  /* Definición de la fuente Source Sans Pro Regular */
-  @font-face {
+/* Definición de la fuente Source Sans Pro Regular */
+@font-face {
     font-family: 'Source Sans Pro';
-    src: url('../fonts/SourceSansPro-Regular.woff2') format('woff2');  
+    src: url('./fonts/SourceSansPro-Regular.woff2') format('woff2');  
     font-weight: 400;
     font-style: normal;
-  }
+}
   
-  /* Definición de la fuente Source Sans Pro SemiBold */
-  @font-face {
+/* Definición de la fuente Source Sans Pro SemiBold */
+@font-face {
     font-family: 'Source Sans Pro';
-    src: url('../fonts/SourceSansPro-SemiBold.woff2') format('woff2');  
+    src: url('./fonts/SourceSansPro-SemiBold.woff2') format('woff2');  
     font-weight: 600;  
     font-style: normal;
-  }
+}
   
-  /* Aplicar Publico Headline a los títulos */
-  h1, h2, h3, h4, h5, h6 {
+/* Aplicar Publico Headline a los títulos */
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Publico Headline Web', sans-serif;
     font-weight: 700;
     font-style: normal;
-  }
+}
   
-  /* Aplicar Source Sans Pro al body y otros textos */
-  body {
+/* Aplicar Source Sans Pro al body y otros textos */
+body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400; /* Regular */
-  }
+}
   
-  p, a, li, span, div {
+p, a, li, span, div {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
-  }
+}
 
 /* ================================ */
 /* 2. Reset de Estilos              */
 /* ================================ */
 
- 
 body, h1, h2, h3, p, div, section, header {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color:  #343C3D;
+    color: #343C3D;
 }
 
 body {
-   
     line-height: 1.6;
     background-color: #fff;
 }
@@ -136,54 +134,49 @@ body {
 }
 
 /* ================================ */
-/* 4. Banner Section                  */
+/* 4. Banner Section                */
 /* ================================ */
 .hero {
-  position: relative;
-  height: 40.25vw;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 5%;
-  color: #fff;
-  text-align: left;
-  overflow: hidden;
+    position: relative;
+    height: 40.25vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5%;
+    color: #fff;
+    text-align: left;
+    overflow: hidden;
 }
 
 .hero-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
-
-
 
 @media (max-width: 768px) {
-  
     .hero {
-  padding: 0;
-  margin: 0;
-  min-height: 392px;
-}
+        padding: 0;
+        margin: 0;
+        min-height: 392px;
+    }
   
     .hero-image {
-    content: url('./images/Banner-credito-movil.webp');
-    width: 100%;
-    height: auto;
-    max-height: 100vh;
-    object-fit: cover;
-    object-position: center center;
-    
-     
-  }
+        content: url('./images/Banner-credito-movil.webp');
+        width: 100%;
+        height: auto;
+        max-height: 100vh;
+        object-fit: cover;
+        object-position: center center;
+    }
 }
 
 /* ================================ */
-/* 5. Vida deudor Section                 */
+/* 5. Vida deudor Section           */
 /* ================================ */
 
 .information-axa {
@@ -197,8 +190,8 @@ body {
     font-weight: bold;
     line-height: 2.5rem;
     margin-bottom: 25px;
-   
 }
+
 .seguro-vida-deudor {
     display: flex;
     flex-wrap: wrap;
@@ -208,9 +201,8 @@ body {
     width: 80%;
 }
 
-
 .seguro-vida-deudor p {
-font-size: 20px;
+    font-size: 20px;
 }
 
 .imagen-container {
@@ -246,6 +238,7 @@ font-size: 20px;
 .boton-info:hover {
     background-color: #1F1F9C;  
 }
+
 /* Responsive */
 @media (max-width: 768px) {
     .seguro-vida-deudor {
@@ -254,7 +247,7 @@ font-size: 20px;
     }
 
     .seguro-vida-deudor h1 {
-       font-size: 30px;
+        font-size: 30px;
     }
 
     .imagen-container {
@@ -264,14 +257,14 @@ font-size: 20px;
     .texto-container {
         text-align: center;
     }
-}
-.imagen-container img {
-    max-width: 60%;
-     
+    
+    .imagen-container img {
+        max-width: 60%;
+    }
 }
 
 /* ================================ */
-/* 6. step Section   */
+/* 6. step Section                  */
 /* ================================ */
 
 .cont-six {
@@ -283,26 +276,24 @@ font-size: 20px;
     margin-top: 50px;
 }
 
-
-
 .six-step {
     display: flex;
     background-color: #f0f0f05c;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .left h2 {
-font-size: 36px;
-color: #343C3D;
+    font-size: 36px;
+    color: #343C3D;
 }
+
 .column {
     padding: 20px;
 }
 
 .left {
-   
     width: 40%;
     display: flex;
     align-items: center;
@@ -317,11 +308,9 @@ color: #343C3D;
     align-items: flex-start;  
 }
 
-.right h3
-{
-  color: #00008F;
+.right h3 {
+    color: #00008F;
 }
-
 
 .step {
     display: flex;
@@ -336,10 +325,7 @@ color: #343C3D;
     width: 40px;
     height: 40px;
     margin-right: 15px;
- 
 }
-
-
 
 .bg {
     fill: #FFF;
@@ -385,28 +371,28 @@ color: #343C3D;
 /* Responsive */
 @media (max-width: 768px) {
     .cont-six {
-       
         width: 95%;
     }
-    .cont-six h2{
+    
+    .cont-six h2 {
         font-size: 30px;
     }
-    .six-step{
+    
+    .six-step {
         flex-direction: column;
     }
 
     .column {
         width: 100%;
     }
-    .left{
+    
+    .left {
         text-align: center;
     }
-   
 }
 
-
 /* ================================ */
-/* 7. Requisitos section */
+/* 7. Requisitos section            */
 /* ================================ */
 
 .requisitos {
@@ -418,78 +404,76 @@ color: #343C3D;
     width: 80%;  
     margin-left: auto;  
     margin-right: auto;
-  }
+}
  
-  .requisitos-titulo {
+.requisitos-titulo {
     text-align: center;  
     margin-bottom: 30px;
     width: 100%;  
-  }
+}
  
-  .requisitos-titulo h2 {
+.requisitos-titulo h2 {
     font-size: 36px;
     color: #343c3d;
-  }
+}
  
-  .requisitos-container {
+.requisitos-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;  
     gap: 20px;
     width: 100%;  
-  }
+}
  
-  .requisito-card {
+.requisito-card {
     width: calc(33.33% - 20px);
     text-align: center;  
     padding: 20px;
-  }
+}
  
-  .requisito-card i {
+.requisito-card i {
     font-size: 58px;
     color: #00008b;
     margin-bottom: 10px;
-  }
+}
  
-  .requisito-card h3 {
+.requisito-card h3 {
     font-size: 18px;
     margin-bottom: 5px;
     color: #00008b;
     text-transform: uppercase;
     font-family: 'Source Sans Pro';
-  }
+}
  
-  .requisito-card p {
+.requisito-card p {
     font-size: 18px;
     color: #333;
-  }
+}
  
 /* Responsive */
-  @media (max-width: 745px) {
+@media (max-width: 745px) {
     .requisito-card {
-      width: calc(50% - 20px);
+        width: calc(50% - 20px);
     }
  
     .requisitos {
-      align-items: center;  
+        align-items: center;  
     }
  
     .requisitos-titulo {
-      text-align: center;  
+        text-align: center;  
     }
  
     .requisitos-container {
-      justify-content: center;  
+        justify-content: center;  
     }
-  }
+}
  
-  @media (max-width: 525px) {
+@media (max-width: 525px) {
     .requisito-card {
-      width: 100%;
+        width: 100%;
     }
-  }
- 
-
+}
 
 /* ================================ */
 /* 8. Floating Form Section         */
@@ -535,8 +519,8 @@ color: #343C3D;
 /* Botón flotante para reabrir el formulario */
 .floating-button {
     position: fixed;
-    bottom: 10px;  
-    right: 180px;
+    bottom: 10px;
+    right: 40px;
     background-color: #d24723;
     color: white;
     border: none;
@@ -549,9 +533,11 @@ color: #343C3D;
     transition: opacity 0.3s ease-in-out;
     text-transform: uppercase;
     z-index: 99;
+    width: auto;
+    max-width: 28rem;
 }
 
-.floating-button:hover{
+.floating-button:hover {
     background-color: #D75D3D;
 }
 
@@ -636,7 +622,7 @@ textarea {
     border-radius: 0.375rem;
     margin-top: 0.25rem;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 14px; /* Desktop size */
     -webkit-appearance: none;
 }
 
@@ -649,6 +635,7 @@ textarea {
 .flex-center {
     justify-content: center;
 }
+
 .flex-checkbox {
     display: flex;
     align-items: center;
@@ -778,11 +765,10 @@ select#Método\ de\ contacto {
     border-color: #1CC54F;
 }
 
-
-
 .dropdown-header .seleccionado {
     color: #718096;  
 }
+
 .dropdown-lista {
     list-style: none;
     padding: 0;
@@ -834,6 +820,7 @@ select#Método\ de\ contacto {
 .dropdown-lista li input[type="checkbox"]:active {
     background-color: transparent; 
 }
+
 .dropdown-header .arrow-down {
     font-size: 0.8rem;
     color: #718096;
@@ -844,6 +831,7 @@ select#Método\ de\ contacto {
     font-size: 14px;
     line-height: 1;
 }
+
 /* Estilos para ocultar el select original */
 select#Método\ de\ contacto {
     display: none;
@@ -870,28 +858,50 @@ select:not(#Método\ de\ contacto) {
     }
 }
 
+/* Estilos para la barra de desplazamiento */
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: #b8b8b8;
+    border-radius: 4px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {
         width: 100%;
-        position: fixed; /* Fija el contenedor en la pantalla */
+        position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
-        max-height: 62%; /* Altura máxima del formulario */
+        max-height: 62%;
         background-color: white;
         z-index: 10;
-        display: flex; /* Usamos flexbox para organizar el encabezado y el formulario */
-        flex-direction: column; /* Los elementos se apilan verticalmente */
+        display: flex;
+        flex-direction: column;
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
     }
 
-    container::-webkit-scrollbar {
-        width: 6px;
+    #miFormulario input,
+    #miFormulario select,
+    #miFormulario textarea {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0.375rem;
+        border-radius: 0.375rem;
+        -webkit-user-select: text;
+        user-select: text;
+        pointer-events: auto;
+        -webkit-touch-callout: default;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
 
-    container::-webkit-scrollbar-thumb {
-        background-color: #b8b8b8;
-        border-radius: 4px;
+    .form-group input,
+    .form-group select {
+        width: 100%;
     }
 
     .header-form {
@@ -940,16 +950,8 @@ select:not(#Método\ de\ contacto) {
     }
 }
 
-    .form-group input,
-    .form-group select {
-        width: 100%;
-    }
-
-
-
-
 /* ================================ */
-/* 9. Footer                       */
+/* 9. Footer                        */
 /* ================================ */
 .footer {
     background-color: #4976BA;
@@ -1066,7 +1068,7 @@ select:not(#Método\ de\ contacto) {
     .footer-container {
         flex-direction: column;
         align-items: stretch;
-        margin-bottom: 1rem;
+        margin-bottom: 1rem;s
         text-align: left;  
     }
 
@@ -1096,16 +1098,14 @@ select:not(#Método\ de\ contacto) {
         display: none;  
     }
   
-.footer-column ul li,
-.footer-column p {
-    text-align: left;
-}
+    .footer-column ul li,
+    .footer-column p {
+        text-align: left;
+    }
 
     .footer-column.open ul {
         display: block;  
     }
-
-   
 
     .footer-social {
         flex-direction: column;
@@ -1123,13 +1123,12 @@ select:not(#Método\ de\ contacto) {
     .dropdown-arrow {
         display: inline-block;
     }
+    
     .salud-footer {
         position: static;
         margin-top: 0;
     }
 }
-
-
 
 
 </style>
@@ -1464,303 +1463,307 @@ select:not(#Método\ de\ contacto) {
 </footer>
    
 <script>
-
- // Animación step section
-const steps = document.querySelectorAll('.step');
-const lineProgress = document.querySelector('.line-progress');
-const contSix = document.querySelector('.cont-six');
-
-function showStep(index) {
-    if (index < steps.length) {
-        steps[index].style.opacity = 1;
-        const progress = steps[index].dataset.progress;
-        const offset = 113.1 - (113.1 * progress / 100);
-        steps[index].querySelector('.progress').style.strokeDashoffset = offset;
-
-        let totalHeight = 0;
-        steps.forEach(step => {
-            totalHeight += step.offsetHeight;
-        });
-
-        let currentHeight = 0;
-        for (let i = 0; i <= index; i++) {
-            currentHeight += steps[i].offsetHeight;
-        }
-
-        lineProgress.style.height = currentHeight + 'px';
-
-        setTimeout(() => {
-            if (index < steps.length - 1) {
-                showStep(index + 1);
-            } else {
-                lineProgress.style.height = totalHeight + 'px';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animación step section
+        const steps = document.querySelectorAll('.step');
+        const lineProgress = document.querySelector('.line-progress');
+        const contSix = document.querySelector('.cont-six');
+    
+        function showStep(index) {
+            if (index < steps.length) {
+                steps[index].style.opacity = 1;
+                const progress = steps[index].dataset.progress;
+                const offset = 113.1 - (113.1 * progress / 100);
+                steps[index].querySelector('.progress').style.strokeDashoffset = offset;
+    
+                let totalHeight = 0;
+                steps.forEach(step => {
+                    totalHeight += step.offsetHeight;
+                });
+    
+                let currentHeight = 0;
+                for (let i = 0; i <= index; i++) {
+                    currentHeight += steps[i].offsetHeight;
+                }
+    
+                lineProgress.style.height = currentHeight + 'px';
+    
+                setTimeout(() => {
+                    if (index < steps.length - 1) {
+                        showStep(index + 1);
+                    } else {
+                        lineProgress.style.height = totalHeight + 'px';
+                    }
+                }, 1000);
             }
-        }, 1000);
-    }
-}
-
-function startAnimation() {
-    setTimeout(() => {
-        showStep(0);
-    }, 100);
-}
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            startAnimation();
-            observer.unobserve(contSix);
         }
-    });
-}, { threshold: 0.1 });  
-
-observer.observe(contSix);
-
-// Formulario
-const formulario = document.getElementById('miFormulario');
-const formContainer = document.getElementById('formContainer');
-const botonUnirme = document.getElementById('botonUnirme');
-const cerrarFormulario = document.getElementById('cerrarFormulario');
-const dropdownSimulado = document.querySelector('.dropdown-simulado');
-const dropdownHeader = dropdownSimulado.querySelector('.dropdown-header');
-const dropdownLista = dropdownSimulado.querySelector('.dropdown-lista');
-const seleccionadoSpan = dropdownHeader.querySelector('.seleccionado');
-const checkBoxes = dropdownLista.querySelectorAll('input[type="checkbox"]');
-const inputHidden = document.getElementById('Metodo_Contacto'); // input hidden
-
-// Función para validar un campo
-function validarCampo(campo) {
-    const errorSpan = document.getElementById('error-' + campo.id.replace('Metodo_Contacto', 'tipo-contacto'));
-    let mensajeError = '';
-
-    if (campo.id === 'Metodo_Contacto') {
-        const opcionesMarcadas = Array.from(checkBoxes).filter(cb => cb.checked);
-        if (opcionesMarcadas.length === 0) {
-            mensajeError = 'Debe seleccionar al menos un método de contacto';
-            dropdownSimulado.classList.add('error');
-            dropdownSimulado.classList.remove('valid');
-        } else {
-            dropdownSimulado.classList.remove('error');
-            dropdownSimulado.classList.add('valid');
+    
+        function startAnimation() {
+            setTimeout(() => {
+                showStep(0);
+            }, 100);
         }
-    } else if (!campo.value) {
-        mensajeError = 'Este campo es obligatorio';
-    } else if (campo.id === 'correo' && !campo.value.includes('@')) {
-        mensajeError = 'El correo no cumple con un formato valido';
-    } else if (campo.id === 'telefono' && isNaN(campo.value)) {
-        mensajeError = 'El teléfono debe contener solo números';
-    }
-
-    if (mensajeError) {
-        campo.classList.add('error');
-        campo.classList.remove('valid');
-        errorSpan.textContent = mensajeError;
-        return false;
-    } else {
-        campo.classList.remove('error');
-        campo.classList.add('valid');
-        errorSpan.textContent = '';
-        return true;
-    }
-}
-
-// Inicializar valor del input hidden y texto mostrado
-function inicializarSeleccion() {
-    const opcionesMarcadas = Array.from(checkBoxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    if (opcionesMarcadas.length === checkBoxes.length) {
-        seleccionadoSpan.textContent = 'Todos';
-    } else if (opcionesMarcadas.length > 0) {
-        seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
-    } else {
-        seleccionadoSpan.textContent = 'Seleccionar';
-    }
-
-    inputHidden.value = opcionesMarcadas.join(',');
-    validarCampo(inputHidden);
-}
-
-// Evento para abrir/cerrar dropdown
-dropdownHeader.addEventListener('click', () => {
-    dropdownLista.classList.toggle('open');
-    if (dropdownLista.classList.contains('open')) {
-        dropdownHeader.style.borderColor = '#00008F';
-        dropdownHeader.style.boxShadow = '0 0 5px #00008F';
-    } else {
-        dropdownHeader.style.borderColor = '';
-        dropdownHeader.style.boxShadow = '';
-    }
-});
-
-// Evento para actualizar selección al cambiar checkboxes
-dropdownLista.addEventListener('click', (event) => {
-    if (event.target.type === 'checkbox') {
-        const opcionesMarcadas = Array.from(checkBoxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
-
-        if (opcionesMarcadas.length === checkBoxes.length) {
-            seleccionadoSpan.textContent = 'Todos';
-        } else if (opcionesMarcadas.length > 0) {
-            seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
-        } else {
-            seleccionadoSpan.textContent = 'Seleccionar';
-        }
-
-        inputHidden.value = opcionesMarcadas.join(',');
-
-        validarCampo(inputHidden);
-    }
-});
-
-// Cerrar dropdown al hacer clic fuera
-document.addEventListener('click', (event) => {
-    if (!dropdownSimulado.contains(event.target)) {
-        dropdownLista.classList.remove('open');
-        dropdownHeader.style.borderColor = '';
-        dropdownHeader.style.boxShadow = '';
-    }
-});
-
-// Manejo del formulario
-formulario.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const camposRequeridos = formulario.querySelectorAll('[required]');
-    let valido = true;
-
-    camposRequeridos.forEach(campo => {
-        if (!validarCampo(campo)) {
-            valido = false;
-        }
-    });
-
-    if (!valido) {
-        alert("Por favor, complete todos los campos obligatorios correctamente.");
-        return;
-    }
-
-    console.log('Formulario enviado');
-    formContainer.classList.add('oculto');
-    botonUnirme.classList.remove('oculto');
-});
-
-// Manejo del formulario flotante
-document.addEventListener("DOMContentLoaded", function () {
-    formContainer.classList.remove("oculto");
-    botonUnirme.classList.add("oculto");
-
-    cerrarFormulario.addEventListener("click", function () {
-        formContainer.classList.add("oculto");
-        botonUnirme.classList.remove("oculto");
-    });
-
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 200) {
-            formContainer.classList.add("oculto");
-            botonUnirme.classList.remove("oculto");
-        } else {
-            formContainer.classList.remove("oculto");
-            botonUnirme.classList.add("oculto");
-        }
-    });
-
-    botonUnirme.addEventListener("click", function () {
-        formContainer.classList.toggle("oculto");
-        botonUnirme.classList.toggle("oculto");
-    });
-});
-
-// Validación en tiempo real
-const campos = formulario.querySelectorAll('input, select, textarea');
-campos.forEach(campo => {
-    campo.addEventListener('blur', function() {
-        validarCampo(this);
-    });
-});
-
-// Inicializar selección al cargar la página
-inicializarSeleccion();
-
-// Dropdown footer
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownColumns = document.querySelectorAll('.mobile-dropdown');
-
-    dropdownColumns.forEach(currentColumn => {
-        const title = currentColumn.querySelector('.dropdown-title');
-        const list = currentColumn.querySelector('.dropdown-list');
-
-        if (title && list) {
-            title.addEventListener('click', function() {
-                dropdownColumns.forEach(otherColumn => {
-                    if (otherColumn !== currentColumn && otherColumn.classList.contains('open')) {
-                        otherColumn.classList.remove('open');
+    
+        if (contSix) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAnimation();
+                        observer.unobserve(contSix);
                     }
                 });
-                currentColumn.classList.toggle('open');
+            }, { threshold: 0.1 });  
+    
+            observer.observe(contSix);
+        }
+    
+        // Formulario
+        const formulario = document.getElementById('miFormulario');
+        const formContainer = document.getElementById('formContainer');
+        const botonUnirme = document.getElementById('botonUnirme');
+        const cerrarFormulario = document.getElementById('cerrarFormulario');
+        
+        if (formulario) {
+            const dropdownSimulado = document.querySelector('.dropdown-simulado');
+            const dropdownHeader = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-header') : null;
+            const dropdownLista = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-lista') : null;
+            const seleccionadoSpan = dropdownHeader ? dropdownHeader.querySelector('.seleccionado') : null;
+            const checkBoxes = dropdownLista ? dropdownLista.querySelectorAll('input[type="checkbox"]') : [];
+            const inputHidden = document.getElementById('Metodo_Contacto'); // input hidden
+    
+            // Función para validar un campo
+            function validarCampo(campo) {
+                const errorSpan = document.getElementById('error-' + campo.id.replace('Metodo_Contacto', 'tipo-contacto'));
+                let mensajeError = '';
+    
+                if (campo.id === 'Metodo_Contacto') {
+                    const opcionesMarcadas = Array.from(checkBoxes).filter(cb => cb.checked);
+                    if (opcionesMarcadas.length === 0) {
+                        mensajeError = 'Debe seleccionar al menos un método de contacto';
+                        dropdownSimulado.classList.add('error');
+                        dropdownSimulado.classList.remove('valid');
+                    } else {
+                        dropdownSimulado.classList.remove('error');
+                        dropdownSimulado.classList.add('valid');
+                    }
+                } else if (!campo.value) {
+                    mensajeError = 'Este campo es obligatorio';
+                } else if (campo.id === 'correo' && !campo.value.includes('@')) {
+                    mensajeError = 'El correo no cumple con un formato válido';
+                } else if (campo.id === 'telefono' && isNaN(campo.value)) {
+                    mensajeError = 'El teléfono debe contener solo números';
+                }
+    
+                if (mensajeError) {
+                    campo.classList.add('error');
+                    campo.classList.remove('valid');
+                    if (errorSpan) errorSpan.textContent = mensajeError;
+                    return false;
+                } else {
+                    campo.classList.remove('error');
+                    campo.classList.add('valid');
+                    if (errorSpan) errorSpan.textContent = '';
+                    return true;
+                }
+            }
+    
+            // Inicializar valor del input hidden y texto mostrado
+            function inicializarSeleccion() {
+                if (!checkBoxes.length || !seleccionadoSpan || !inputHidden) return;
+                
+                const opcionesMarcadas = Array.from(checkBoxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+    
+                if (opcionesMarcadas.length === checkBoxes.length) {
+                    seleccionadoSpan.textContent = 'Todos';
+                } else if (opcionesMarcadas.length > 0) {
+                    seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
+                } else {
+                    seleccionadoSpan.textContent = 'Seleccionar';
+                }
+    
+                inputHidden.value = opcionesMarcadas.join(',');
+                validarCampo(inputHidden);
+            }
+    
+            // Configurar eventos del dropdown si existe
+            if (dropdownHeader && dropdownLista) {
+                // Evento para abrir/cerrar dropdown
+                dropdownHeader.addEventListener('click', () => {
+                    dropdownLista.classList.toggle('open');
+                    if (dropdownLista.classList.contains('open')) {
+                        dropdownHeader.style.borderColor = '#00008F';
+                        dropdownHeader.style.boxShadow = '0 0 5px #00008F';
+                    } else {
+                        dropdownHeader.style.borderColor = '';
+                        dropdownHeader.style.boxShadow = '';
+                    }
+                });
+    
+                // Evento para actualizar selección al cambiar checkboxes
+                dropdownLista.addEventListener('click', (event) => {
+                    if (event.target.type === 'checkbox') {
+                        const opcionesMarcadas = Array.from(checkBoxes)
+                            .filter(cb => cb.checked)
+                            .map(cb => cb.value);
+    
+                        if (opcionesMarcadas.length === checkBoxes.length) {
+                            seleccionadoSpan.textContent = 'Todos';
+                        } else if (opcionesMarcadas.length > 0) {
+                            seleccionadoSpan.textContent = opcionesMarcadas.join(', ');
+                        } else {
+                            seleccionadoSpan.textContent = 'Seleccionar';
+                        }
+    
+                        inputHidden.value = opcionesMarcadas.join(',');
+                        validarCampo(inputHidden);
+                    }
+                });
+    
+                // Cerrar dropdown al hacer clic fuera
+                document.addEventListener('click', (event) => {
+                    if (!dropdownSimulado.contains(event.target)) {
+                        dropdownLista.classList.remove('open');
+                        dropdownHeader.style.borderColor = '';
+                        dropdownHeader.style.boxShadow = '';
+                    }
+                });
+            }
+    
+            // Manejo del formulario
+            formulario.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const camposRequeridos = formulario.querySelectorAll('[required]');
+                let valido = true;
+    
+                camposRequeridos.forEach(campo => {
+                    if (!validarCampo(campo)) {
+                        valido = false;
+                    }
+                });
+    
+                if (!valido) {
+                    alert("Por favor, complete todos los campos obligatorios correctamente.");
+                    return;
+                }
+    
+                console.log('Formulario enviado');
+                if (formContainer && botonUnirme) {
+                    formContainer.classList.add('oculto');
+                    botonUnirme.classList.remove('oculto');
+                }
+            });
+    
+            // Validación en tiempo real
+            const campos = formulario.querySelectorAll('input, select, textarea');
+            campos.forEach(campo => {
+                campo.addEventListener('blur', function() {
+                    validarCampo(this);
+                });
+            });
+    
+            // Inicializar selección al cargar la página
+            inicializarSeleccion();
+        }
+    
+        // Manejo del formulario flotante
+        if (formContainer && botonUnirme && cerrarFormulario) {
+            formContainer.classList.remove("oculto");
+            botonUnirme.classList.add("oculto");
+    
+            cerrarFormulario.addEventListener("click", function () {
+                formContainer.classList.add("oculto");
+                botonUnirme.classList.remove("oculto");
+            });
+    
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 200) {
+                    formContainer.classList.add("oculto");
+                    botonUnirme.classList.remove("oculto");
+                } else {
+                    formContainer.classList.remove("oculto");
+                    botonUnirme.classList.add("oculto");
+                }
+            });
+    
+            botonUnirme.addEventListener("click", function () {
+                formContainer.classList.toggle("oculto");
+                botonUnirme.classList.toggle("oculto");
             });
         }
+    
+        // Dropdown footer
+        const dropdownColumns = document.querySelectorAll('.mobile-dropdown');
+        dropdownColumns.forEach(currentColumn => {
+            const title = currentColumn.querySelector('.dropdown-title');
+            const list = currentColumn.querySelector('.dropdown-list');
+    
+            if (title && list) {
+                title.addEventListener('click', function() {
+                    dropdownColumns.forEach(otherColumn => {
+                        if (otherColumn !== currentColumn && otherColumn.classList.contains('open')) {
+                            otherColumn.classList.remove('open');
+                        }
+                    });
+                    currentColumn.classList.toggle('open');
+                });
+            }
+        });
+    
+        // Optimizaciones para iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isMobile = window.innerWidth <= 768;
+    
+        if (isIOS) {
+            // Ajustar tamaño de fuente para evitar zoom en iOS
+            const inputs = document.querySelectorAll('input, select, textarea');
+            const miFormulario = document.getElementById('miFormulario');
+    
+            inputs.forEach(input => {
+                input.style.fontSize = '16px';
+    
+                // Ajustar scroll cuando el teclado aparece
+                if (miFormulario) {
+                    input.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            const inputRect = this.getBoundingClientRect();
+                            const containerRect = miFormulario.getBoundingClientRect();
+    
+                            if (inputRect.bottom > containerRect.bottom - 50) {
+                                const scrollTop = miFormulario.scrollTop + (inputRect.bottom - containerRect.bottom) + 60;
+                                miFormulario.scrollTo({
+                                    top: scrollTop,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }, 100);
+                    });
+                }
+    
+                // Controlar el viewport para evitar problemas con el zoom
+                input.addEventListener('focus', function() {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    if (viewport) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    }
+                });
+    
+                input.addEventListener('blur', function() {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    if (viewport) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                    }
+                });
+            });
+        }
+    
+        // Mejorar el manejo de eventos táctiles en iOS
+        if (isIOS) {
+            document.addEventListener('touchstart', function() {}, { passive: true });
+            document.addEventListener('touchmove', function() {}, { passive: true });
+        }
     });
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isIOS) {
-        const inputs = document.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                }
-            });
-
-            input.addEventListener('blur', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                }
-            });
-        });
-    }
-});
-
-if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    document.addEventListener('touchstart', function() {}, { passive: true });
-    document.addEventListener('touchmove', function() {}, { passive: true });
-}
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isIOS) {
-        const inputs = document.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                }
-            });
-
-            input.addEventListener('blur', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                }
-            });
-        });
-    }
-});
-
-if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    document.addEventListener('touchstart', function() {}, { passive: true });
-    document.addEventListener('touchmove', function() {}, { passive: true });
-}
-</script>
-</body>
-</html>
+    </script>
+    </body>
+    </html>
