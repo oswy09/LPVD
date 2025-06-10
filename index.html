@@ -1778,54 +1778,60 @@ select:not(#Método\ de\ contacto) {
             }
         });
     
+        // ***************************************************************
         // Optimización clave para iOS: Manejo del viewport para el teclado
+        // ***************************************************************
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isMobile = window.innerWidth <= 768; // User's suggested check
+        const isMobile = window.innerWidth <= 768; 
         
         // Capturar el contenido inicial del viewport al cargar la página
-        const viewport = document.querySelector('meta[name="viewport"]');
-        const initialViewportContent = viewport ? viewport.getAttribute('content') : '';
+        // Asegúrate de que tu meta viewport en el HTML ya tiene user-scalable=yes
+        // <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        const viewportMeta = document.querySelector('meta[name="viewport"]');
+        const initialViewportContent = viewportMeta ? viewportMeta.getAttribute('content') : 'width=device-width, initial-scale=1.0, user-scalable=yes'; // Fallback seguro
     
-        if (isIOS && isMobile) { // Apply only for iOS mobile as suggested
+        if (isIOS && isMobile) { 
             console.log('iOS móvil detectado - Aplicando optimizaciones de teclado.');
             
             // Asegura que los inputs tengan un tamaño de fuente que evite el zoom no deseado
-            // Selecciona inputs solo dentro del formulario para no afectar otros inputs en la página
             const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
             formInputs.forEach(input => {
-                input.style.fontSize = '16px'; // Esto ayuda a iOS a no hacer zoom automático
+                input.style.fontSize = '16px'; 
             });
 
-            // Aplicar también al dropdown personalizado si existe
+            // Aplicar también al dropdown personalizado si existe (que es un div, no un input)
             const dropdownHeader = document.querySelector('.dropdown-header');
             if (dropdownHeader) {
                 dropdownHeader.style.fontSize = '16px';
             }
     
             // Eventos de foco y blur para manejar el viewport en iOS
-            // Estos eventos solo deben aplicarse a los inputs del formulario
             formInputs.forEach(input => {
                 input.addEventListener('focus', function() {
-                    if (viewport) {
+                    if (viewportMeta) {
                         // CRÍTICO: Permitir al usuario escalar para que el teclado funcione
-                        // Cambiado de user-scalable=no a user-scalable=yes
-                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0');
+                        // Aumentar maximum-scale para dar más margen en iOS
+                        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=10.0');
                     }
                     // Opcional: Ajustar el scroll para que el campo enfocado esté visible
                     setTimeout(() => {
                         this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300); // Pequeño retraso para que el teclado tenga tiempo de aparecer
+                    }, 300); 
                 });
     
                 input.addEventListener('blur', function() {
-                    if (viewport) {
-                        // Vuelve a la configuración original del viewport al desenfocar
-                        viewport.setAttribute('content', initialViewportContent);
+                    if (viewportMeta) {
+                        // Volver a la configuración inicial del viewport al desenfocar
+                        // Esto se hace con un pequeño retraso para asegurar que el teclado se haya cerrado
+                        setTimeout(() => {
+                            viewportMeta.setAttribute('content', initialViewportContent);
+                        }, 350); // Ajusta este retraso si el teclado aún tiene problemas
                     }
                 });
             });
     
             // Mejorar el manejo de eventos táctiles en iOS (ya lo tenías, lo mantengo)
+            // A veces, iOS puede bloquear el scroll si no hay un touchstart/touchmove listener pasivo.
             document.addEventListener('touchstart', function() {}, { passive: true });
             document.addEventListener('touchmove', function() {}, { passive: true });
         }
