@@ -876,7 +876,7 @@ select:not(#Método\ de\ contacto) {
         left: 0;
         right: 0;
         bottom: 0;
-        max-height: 90%;
+        max-height: 65%;
         background-color: white;
         z-index: 10;
         display: flex;
@@ -1778,64 +1778,34 @@ select:not(#Método\ de\ contacto) {
             }
         });
     
-        // ***************************************************************
-        // Optimización clave para iOS: Manejo del viewport para el teclado
-        // ***************************************************************
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isMobile = window.innerWidth <= 768; 
+        // SOLUCIÓN CORREGIDA PARA iOS - SIN MANIPULAR VIEWPORT
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isIOS && isMobile) {
+        console.log('iOS móvil detectado - Aplicando solo font-size 16px');
         
-        // Capturar el contenido inicial del viewport al cargar la página
-        // Asegúrate de que tu meta viewport en el HTML ya tiene user-scalable=yes
-        // <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-        const viewportMeta = document.querySelector('meta[name="viewport"]');
-        const initialViewportContent = viewportMeta ? viewportMeta.getAttribute('content') : 'width=device-width, initial-scale=1.0, user-scalable=yes'; // Fallback seguro
-    
-        if (isIOS && isMobile) { 
-            console.log('iOS móvil detectado - Aplicando optimizaciones de teclado.');
-            
-            // Asegura que los inputs tengan un tamaño de fuente que evite el zoom no deseado
-            const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
-            formInputs.forEach(input => {
-                input.style.fontSize = '16px'; 
-            });
+        // SOLO aplicar font-size 16px para prevenir zoom automático
+        const formInputs = document.querySelectorAll('#miFormulario input:not([type="checkbox"]), #miFormulario select, #miFormulario textarea');
+        formInputs.forEach(input => {
+            input.style.fontSize = '16px';
+        });
 
-            // Aplicar también al dropdown personalizado si existe (que es un div, no un input)
-            const dropdownHeader = document.querySelector('.dropdown-header');
-            if (dropdownHeader) {
-                dropdownHeader.style.fontSize = '16px';
-            }
-    
-            // Eventos de foco y blur para manejar el viewport en iOS
-            formInputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    if (viewportMeta) {
-                        // CRÍTICO: Permitir al usuario escalar para que el teclado funcione
-                        // Aumentar maximum-scale para dar más margen en iOS
-                        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=10.0');
-                    }
-                    // Opcional: Ajustar el scroll para que el campo enfocado esté visible
-                    setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300); 
-                });
-    
-                input.addEventListener('blur', function() {
-                    if (viewportMeta) {
-                        // Volver a la configuración inicial del viewport al desenfocar
-                        // Esto se hace con un pequeño retraso para asegurar que el teclado se haya cerrado
-                        setTimeout(() => {
-                            viewportMeta.setAttribute('content', initialViewportContent);
-                        }, 350); // Ajusta este retraso si el teclado aún tiene problemas
-                    }
-                });
-            });
-    
-            // Mejorar el manejo de eventos táctiles en iOS (ya lo tenías, lo mantengo)
-            // A veces, iOS puede bloquear el scroll si no hay un touchstart/touchmove listener pasivo.
-            document.addEventListener('touchstart', function() {}, { passive: true });
-            document.addEventListener('touchmove', function() {}, { passive: true });
+        // Aplicar también al dropdown personalizado
+        const dropdownHeader = document.querySelector('.dropdown-header');
+        if (dropdownHeader) {
+            dropdownHeader.style.fontSize = '16px';
         }
-    });
+        
+        // ELIMINADO: Todo el código de manipulación del viewport
+        // ELIMINADO: Los event listeners de focus/blur que cambiaban el viewport
+        // ELIMINADO: Los setTimeout y scrollIntoView que causaban problemas
+        
+        // Mantener solo los eventos táctiles pasivos para mejorar el scroll
+        document.addEventListener('touchstart', function() {}, { passive: true });
+        document.addEventListener('touchmove', function() {}, { passive: true });
+    }
+});
 </script>
     </body>
     </html>
