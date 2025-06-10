@@ -965,10 +965,14 @@ select:not(#Método\ de\ contacto) {
     }
 
     #miFormulario {
-        flex-grow: 1;  
-        overflow-y: auto;  
+        flex-grow: 1;
+        overflow-y: auto;
         overflow-x: hidden;
+        padding: 15px;
         padding-right: 15px;
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
+        position: relative;
     }
 
     /* Estilo para el "pulgar"   */
@@ -985,6 +989,20 @@ select:not(#Método\ de\ contacto) {
     /* Estilo para el grosor de la barra de scroll */
     #miFormulario::-webkit-scrollbar {
         width: 8px;  
+    }
+     /* Solo aplicar 16px en móviles */
+     #miFormulario input,
+    #miFormulario select,
+    #miFormulario textarea {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        border-radius: 0.375rem;
+    }
+
+    .dropdown-header {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        border-radius: 0.375rem;
     }
 
     .floating-button {
@@ -1513,338 +1531,323 @@ select:not(#Método\ de\ contacto) {
 </footer>
    
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animación step section
-        const steps = document.querySelectorAll('.step');
-        const lineProgress = document.querySelector('.line-progress');
-        const contSix = document.querySelector('.cont-six');
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Animación step section
+    const steps = document.querySelectorAll('.step');
+    const lineProgress = document.querySelector('.line-progress');
+    const contSix = document.querySelector('.cont-six');
     
-        function showStep(index) {
-            if (index < steps.length) {
-                steps[index].style.opacity = 1;
-                const progress = steps[index].dataset.progress;
-                const offset = 113.1 - (113.1 * progress / 100);
-                steps[index].querySelector('.progress').style.strokeDashoffset = offset;
-    
-                let totalHeight = 0;
-                steps.forEach(step => {
-                    totalHeight += step.offsetHeight;
-                });
-    
-                let currentHeight = 0;
-                for (let i = 0; i <= index; i++) {
-                    currentHeight += steps[i].offsetHeight;
-                }
-    
-                lineProgress.style.height = currentHeight + 'px';
-    
-                setTimeout(() => {
-                    if (index < steps.length - 1) {
-                        showStep(index + 1);
-                    } else {
-                        lineProgress.style.height = totalHeight + 'px';
-                    }
-                }, 1000);
+    function showStep(index) {
+        if (index < steps.length) {
+            steps[index].style.opacity = 1;
+            const progress = steps[index].dataset.progress;
+            const offset = 113.1 - (113.1 * progress / 100);
+            steps[index].querySelector('.progress').style.strokeDashoffset = offset;
+            
+            let totalHeight = 0;
+            steps.forEach(step => {
+                totalHeight += step.offsetHeight;
+            });
+            
+            let currentHeight = 0;
+            for (let i = 0; i <= index; i++) {
+                currentHeight += steps[i].offsetHeight;
             }
-        }
-    
-        function startAnimation() {
+            
+            lineProgress.style.height = currentHeight + 'px';
+            
             setTimeout(() => {
-                showStep(0);
-            }, 100);
+                if (index < steps.length - 1) {
+                    showStep(index + 1);
+                } else {
+                    lineProgress.style.height = totalHeight + 'px';
+                }
+            }, 1000);
         }
+    }
     
-        if (contSix) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        startAnimation();
-                        observer.unobserve(contSix);
-                    }
-                });
-            }, { threshold: 0.1 });  
+    function startAnimation() {
+        setTimeout(() => {
+            showStep(0);
+        }, 100);
+    }
     
-            observer.observe(contSix);
-        }
-    
-        // Formulario
-        const formulario = document.getElementById('miFormulario');
-        const formContainer = document.getElementById('formContainer');
-        const botonUnirme = document.getElementById('botonUnirme');
-        const cerrarFormulario = document.getElementById('cerrarFormulario');
+    if (contSix) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAnimation();
+                    observer.unobserve(contSix);
+                }
+            });
+        }, { threshold: 0.1 });  
         
-        if (formulario) {
-            const dropdownSimulado = document.querySelector('.dropdown-simulado');
-            const dropdownHeader = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-header') : null;
-            const dropdownLista = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-lista') : null;
-            const seleccionadoSpan = dropdownHeader ? dropdownHeader.querySelector('.seleccionado') : null;
-            const checkBoxes = dropdownLista ? dropdownLista.querySelectorAll('input[type="checkbox"]') : [];
-            const inputHidden = document.getElementById('Metodo_Contacto'); // input hidden
+        observer.observe(contSix);
+    }
     
-            // Función para validar un campo
-            function validarCampo(campo) {
-                // Obtener el ID del span de error. Si el campo es el input hidden del método de contacto, usa 'tipo-contacto'
-                const errorSpanId = (campo.id === 'Metodo_Contacto') ? 'error-tipo-contacto' : 'error-' + campo.id;
-                const errorSpan = document.getElementById(errorSpanId);
-                let mensajeError = '';
+    // Formulario
+    const formulario = document.getElementById('miFormulario');
+    const formContainer = document.getElementById('formContainer');
+    const botonUnirme = document.getElementById('botonUnirme');
+    const cerrarFormulario = document.getElementById('cerrarFormulario');
     
-                if (campo.id === 'Metodo_Contacto') {
-                    const opcionesMarcadas = Array.from(checkBoxes).filter(cb => cb.checked);
-                    if (opcionesMarcadas.length === 0) {
-                        mensajeError = 'Debe seleccionar al menos un método de contacto';
-                        if (dropdownSimulado) {
-                            dropdownSimulado.classList.add('error');
-                            dropdownSimulado.classList.remove('valid');
-                        }
-                    } else {
-                        if (dropdownSimulado) {
-                            dropdownSimulado.classList.remove('error');
-                            dropdownSimulado.classList.add('valid');
-                        }
+    if (formulario) {
+        const dropdownSimulado = document.querySelector('.dropdown-simulado');
+        const dropdownHeader = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-header') : null;
+        const dropdownLista = dropdownSimulado ? dropdownSimulado.querySelector('.dropdown-lista') : null;
+        const seleccionadoSpan = dropdownHeader ? dropdownHeader.querySelector('.seleccionado') : null;
+        const checkBoxes = dropdownLista ? dropdownLista.querySelectorAll('input[type="checkbox"]') : [];
+        const inputHidden = document.getElementById('Metodo_Contacto');
+        
+        // Función para validar un campo
+        function validarCampo(campo) {
+            const errorSpanId = (campo.id === 'Metodo_Contacto') ? 'error-tipo-contacto' : 'error-' + campo.id;
+            const errorSpan = document.getElementById(errorSpanId);
+            let mensajeError = '';
+            
+            if (campo.id === 'Metodo_Contacto') {
+                const opcionesMarcadas = Array.from(checkBoxes).filter(cb => cb.checked);
+                if (opcionesMarcadas.length === 0) {
+                    mensajeError = 'Debe seleccionar al menos un método de contacto';
+                    if (dropdownSimulado) {
+                        dropdownSimulado.classList.add('error');
+                        dropdownSimulado.classList.remove('valid');
                     }
-                } else if (campo.type === 'checkbox') {
-                    if (!campo.checked) {
-                        mensajeError = 'Debe aceptar este campo';
-                    }
-                }
-                else if (!campo.value.trim()) { // .trim() para campos de texto
-                    mensajeError = 'Este campo es obligatorio';
-                } else if (campo.id === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(campo.value)) {
-                    mensajeError = 'El correo no cumple con un formato válido';
-                } else if (campo.id === 'telefono' && !/^\d+$/.test(campo.value)) {
-                    mensajeError = 'El teléfono debe contener solo números';
-                }
-    
-                if (mensajeError) {
-                    campo.classList.add('error');
-                    campo.classList.remove('valid');
-                    if (errorSpan) errorSpan.textContent = mensajeError;
-                    return false;
                 } else {
-                    campo.classList.remove('error');
-                    campo.classList.add('valid');
-                    if (errorSpan) errorSpan.textContent = '';
-                    return true;
+                    if (dropdownSimulado) {
+                        dropdownSimulado.classList.remove('error');
+                        dropdownSimulado.classList.add('valid');
+                    }
                 }
+            } else if (campo.type === 'checkbox') {
+                if (!campo.checked) {
+                    mensajeError = 'Debe aceptar este campo';
+                }
+            } else if (!campo.value.trim()) {
+                mensajeError = 'Este campo es obligatorio';
+            } else if (campo.id === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(campo.value)) {
+                mensajeError = 'El correo no cumple con un formato válido';
+            } else if (campo.id === 'telefono' && !/^\d+$/.test(campo.value)) {
+                mensajeError = 'El teléfono debe contener solo números';
             }
-    
-            // Inicializar valor del input hidden y texto mostrado
-            function inicializarSeleccion() {
-                if (!checkBoxes.length || !seleccionadoSpan || !inputHidden) return;
-                
-                const opcionesMarcadas = Array.from(checkBoxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
-    
-                if (opcionesMarcadas.length === checkBoxes.length) {
-                    seleccionadoSpan.textContent = 'Todos';
-                } else if (opcionesMarcadas.length > 0) {
-                    seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
+            
+            if (mensajeError) {
+                campo.classList.add('error');
+                campo.classList.remove('valid');
+                if (errorSpan) errorSpan.textContent = mensajeError;
+                return false;
+            } else {
+                campo.classList.remove('error');
+                campo.classList.add('valid');
+                if (errorSpan) errorSpan.textContent = '';
+                return true;
+            }
+        }
+        
+        // Inicializar valor del input hidden y texto mostrado
+        function inicializarSeleccion() {
+            if (!checkBoxes.length || !seleccionadoSpan || !inputHidden) return;
+            
+            const opcionesMarcadas = Array.from(checkBoxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            
+            if (opcionesMarcadas.length === checkBoxes.length) {
+                seleccionadoSpan.textContent = 'Todos';
+            } else if (opcionesMarcadas.length > 0) {
+                seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
+            } else {
+                seleccionadoSpan.textContent = 'Seleccionar';
+            }
+            
+            inputHidden.value = opcionesMarcadas.join(',');
+            validarCampo(inputHidden);
+        }
+        
+        // Configurar eventos del dropdown si existe
+        if (dropdownHeader && dropdownLista) {
+            dropdownHeader.addEventListener('click', () => {
+                dropdownLista.classList.toggle('open');
+                if (dropdownLista.classList.contains('open')) {
+                    dropdownHeader.style.borderColor = '#00008F';
+                    dropdownHeader.style.boxShadow = '0 0 5px #00008F';
                 } else {
-                    seleccionadoSpan.textContent = 'Seleccionar';
+                    dropdownHeader.style.borderColor = '';
+                    dropdownHeader.style.boxShadow = '';
                 }
-    
-                inputHidden.value = opcionesMarcadas.join(',');
-                validarCampo(inputHidden);
-            }
-    
-            // Configurar eventos del dropdown si existe
-            if (dropdownHeader && dropdownLista) {
-                // Evento para abrir/cerrar dropdown
-                dropdownHeader.addEventListener('click', () => {
-                    dropdownLista.classList.toggle('open');
-                    if (dropdownLista.classList.contains('open')) {
-                        dropdownHeader.style.borderColor = '#00008F';
-                        dropdownHeader.style.boxShadow = '0 0 5px #00008F';
+            });
+            
+            dropdownLista.addEventListener('change', (event) => {
+                if (event.target.type === 'checkbox') {
+                    const opcionesMarcadas = Array.from(checkBoxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value);
+                    
+                    if (opcionesMarcadas.length === checkBoxes.length) {
+                        seleccionadoSpan.textContent = 'Todos';
+                    } else if (opcionesMarcadas.length > 0) {
+                        seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
                     } else {
-                        dropdownHeader.style.borderColor = '';
-                        dropdownHeader.style.boxShadow = '';
+                        seleccionadoSpan.textContent = 'Seleccionar';
                     }
-                });
-    
-                // Evento para actualizar selección al cambiar checkboxes
-                dropdownLista.addEventListener('change', (event) => { // Cambiado a 'change' para mejor manejo de checkboxes
-                    if (event.target.type === 'checkbox') {
-                        const opcionesMarcadas = Array.from(checkBoxes)
-                            .filter(cb => cb.checked)
-                            .map(cb => cb.value);
-    
-                        if (opcionesMarcadas.length === checkBoxes.length) {
-                            seleccionadoSpan.textContent = 'Todos';
-                        } else if (opcionesMarcadas.length > 0) {
-                            seleccionadoSpan.textContent = opcionesMarcadas.map(op => op.charAt(0).toUpperCase() + op.slice(1)).join(', ');
-                        } else {
-                            seleccionadoSpan.textContent = 'Seleccionar';
-                        }
-    
-                        inputHidden.value = opcionesMarcadas.join(',');
-                        validarCampo(inputHidden);
-                    }
-                });
-    
-                // Cerrar dropdown al hacer clic fuera
-                document.addEventListener('click', (event) => {
-                    if (!dropdownSimulado.contains(event.target)) {
-                        dropdownLista.classList.remove('open');
-                        dropdownHeader.style.borderColor = '';
-                        dropdownHeader.style.boxShadow = '';
-                    }
-                });
-            }
-    
-            // Manejo del formulario
-            formulario.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const camposRequeridos = formulario.querySelectorAll('[required]');
-                let valido = true;
-    
-                camposRequeridos.forEach(campo => {
-                    // Validar también los campos de checkbox y el input hidden
-                    if (campo.type === 'checkbox' || campo.id === 'Metodo_Contacto') {
-                        if (!validarCampo(campo)) {
-                            valido = false;
-                        }
-                    } else if (!validarCampo(campo)) {
+                    
+                    inputHidden.value = opcionesMarcadas.join(',');
+                    validarCampo(inputHidden);
+                }
+            });
+            
+            document.addEventListener('click', (event) => {
+                if (!dropdownSimulado.contains(event.target)) {
+                    dropdownLista.classList.remove('open');
+                    dropdownHeader.style.borderColor = '';
+                    dropdownHeader.style.boxShadow = '';
+                }
+            });
+        }
+        
+        // Manejo del formulario
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const camposRequeridos = formulario.querySelectorAll('[required]');
+            let valido = true;
+            
+            camposRequeridos.forEach(campo => {
+                if (campo.type === 'checkbox' || campo.id === 'Metodo_Contacto') {
+                    if (!validarCampo(campo)) {
                         valido = false;
                     }
-                });
-    
-                if (!valido) {
-                    alert("Por favor, complete todos los campos obligatorios correctamente.");
-                    return;
+                } else if (!validarCampo(campo)) {
+                    valido = false;
                 }
-    
-                console.log('Formulario enviado');
-                // Aquí puedes añadir tu lógica para enviar los datos del formulario, por ejemplo, con fetch o XMLHttpRequest
-    
-                // Mostrar mensaje de éxito y ocultar/mostrar elementos
-                const mensajeExito = document.createElement('div');
-                mensajeExito.className = 'mensaje-exito';
-                mensajeExito.textContent = '¡Gracias! Tu mensaje ha sido enviado correctamente.';
-                formulario.parentNode.insertBefore(mensajeExito, formulario.nextSibling); // Insertar después del formulario
-                
-                formulario.reset(); // Limpiar el formulario
-                // Reestablecer la apariencia de los campos
-                formulario.querySelectorAll('.error, .valid').forEach(el => {
-                    el.classList.remove('error', 'valid');
-                });
-                formulario.querySelectorAll('.error-message').forEach(el => {
-                    el.textContent = '';
-                });
-                 if (dropdownSimulado) {
-                    dropdownSimulado.classList.remove('error', 'valid');
-                }
-                inicializarSeleccion(); // Reestablecer el dropdown simulado
-    
-                // Ocultar formulario y mostrar botón "Quiero unirme"
-                if (formContainer && botonUnirme) {
-                    formContainer.classList.add('oculto');
-                    botonUnirme.classList.remove('oculto');
-                }
-    
-                setTimeout(() => {
-                    mensajeExito.remove(); // Eliminar el mensaje de éxito después de unos segundos
-                }, 5000);
             });
-    
-            // Validación en tiempo real
-            const campos = formulario.querySelectorAll('input:not([type="checkbox"]), select, textarea');
-            campos.forEach(campo => {
-                campo.addEventListener('blur', function() {
-                    validarCampo(this);
-                });
-                campo.addEventListener('input', function() { // Validar mientras el usuario escribe
-                    validarCampo(this);
-                });
-            });
-    
-            // Validar los checkboxes y el input hidden del método de contacto
-            const checkboxesForm = formulario.querySelectorAll('input[type="checkbox"]');
-            checkboxesForm.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    validarCampo(this);
-                });
-            });
-    
-            if (inputHidden) {
-                // Aunque es un hidden, si su valor se actualiza por JS, se podría validar al momento
-                // pero ya se hace a través del evento 'change' en el dropdownLista
+            
+            if (!valido) {
+                alert("Por favor, complete todos los campos obligatorios correctamente.");
+                return;
             }
-    
-            // Inicializar selección al cargar la página
+            
+            console.log('Formulario enviado');
+            
+            // Mostrar mensaje de éxito
+            const mensajeExito = document.createElement('div');
+            mensajeExito.className = 'mensaje-exito';
+            mensajeExito.textContent = '¡Gracias! Tu mensaje ha sido enviado correctamente.';
+            formulario.parentNode.insertBefore(mensajeExito, formulario.nextSibling);
+            
+            // Limpiar formulario
+            formulario.reset();
+            formulario.querySelectorAll('.error, .valid').forEach(el => {
+                el.classList.remove('error', 'valid');
+            });
+            formulario.querySelectorAll('.error-message').forEach(el => {
+                el.textContent = '';
+            });
+            if (dropdownSimulado) {
+                dropdownSimulado.classList.remove('error', 'valid');
+            }
             inicializarSeleccion();
-        }
+            
+            // Ocultar formulario y mostrar botón
+            if (formContainer && botonUnirme) {
+                formContainer.classList.add('oculto');
+                botonUnirme.classList.remove('oculto');
+            }
+            
+            setTimeout(() => {
+                mensajeExito.remove();
+            }, 5000);
+        });
+        
+        // Validación en tiempo real
+        const campos = formulario.querySelectorAll('input:not([type="checkbox"]), select, textarea');
+        campos.forEach(campo => {
+            campo.addEventListener('blur', function() {
+                validarCampo(this);
+            });
+            campo.addEventListener('input', function() {
+                validarCampo(this);
+            });
+        });
+        
+        const checkboxesForm = formulario.querySelectorAll('input[type="checkbox"]');
+        checkboxesForm.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                validarCampo(this);
+            });
+        });
+        
+        // Inicializar selección al cargar la página
+        inicializarSeleccion();
+    }
     
-        // Manejo del formulario flotante
-        if (formContainer && botonUnirme && cerrarFormulario) {
-            // Decidir si el formulario debe estar visible o no al cargar la página
-            // Aquí lo dejaremos visible al principio para que el usuario interactúe con él.
-            // Si quieres que inicie oculto, puedes añadir formContainer.classList.add("oculto"); aquí
-            formContainer.classList.remove("oculto"); // Asegúrate de que no esté oculto al inicio
-            botonUnirme.classList.add("oculto"); // Oculta el botón "Quiero unirme" al inicio
-    
-            cerrarFormulario.addEventListener("click", function () {
+    // Manejo del formulario flotante
+    if (formContainer && botonUnirme && cerrarFormulario) {
+        formContainer.classList.remove("oculto");
+        botonUnirme.classList.add("oculto");
+        
+        cerrarFormulario.addEventListener("click", function () {
+            formContainer.classList.add("oculto");
+            botonUnirme.classList.remove("oculto");
+        });
+        
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 200) {
                 formContainer.classList.add("oculto");
                 botonUnirme.classList.remove("oculto");
-            });
-    
-            // Cambiado para que el formulario se oculte al hacer scroll Y el botón aparezca
-            // Y cuando el scroll vuelva a la parte superior, el formulario vuelva a aparecer
-            window.addEventListener("scroll", function () {
-                if (window.scrollY > 200) { // Si el scroll supera los 200px
-                    if (!formContainer.classList.contains("oculto")) { // Solo si no está oculto
-                        formContainer.classList.add("oculto");
-                        botonUnirme.classList.remove("oculto");
-                    }
-                } else { // Si el scroll está cerca del inicio de la página
-                    if (formContainer.classList.contains("oculto")) { // Solo si está oculto
-                        formContainer.classList.remove("oculto");
-                        botonUnirme.classList.add("oculto");
-                    }
-                }
-            });
-    
-            botonUnirme.addEventListener("click", function () {
+            } else {
                 formContainer.classList.remove("oculto");
                 botonUnirme.classList.add("oculto");
-            });
-        }
-    
-        // Dropdown footer
-        const dropdownColumns = document.querySelectorAll('.mobile-dropdown');
-        dropdownColumns.forEach(currentColumn => {
-            const title = currentColumn.querySelector('.dropdown-title');
-            const list = currentColumn.querySelector('.dropdown-list');
-    
-            if (title && list) {
-                title.addEventListener('click', function() {
-                    dropdownColumns.forEach(otherColumn => {
-                        if (otherColumn !== currentColumn && otherColumn.classList.contains('open')) {
-                            otherColumn.classList.remove('open');
-                        }
-                    });
-                    currentColumn.classList.toggle('open');
-                });
             }
         });
-    
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isIOS) {
-        console.log('iOS detectado - Aplicando optimizaciones básicas');
-
-        // Add passive touch events for better performance
-        document.addEventListener('touchstart', function() {}, { passive: true });
-        document.addEventListener('touchmove', function() {}, { passive: true });
-
-        // Ensure inputs are fully interactive
-        const allInputs = document.querySelectorAll('input, select, textarea');
-        allInputs.forEach(input => {
-            input.style.webkitUserSelect = 'text';
-            input.style.webkitTouchCallout = 'default';
+        
+        botonUnirme.addEventListener("click", function () {
+            formContainer.classList.remove("oculto");
+            botonUnirme.classList.add("oculto");
         });
     }
+    
+    // Dropdown footer
+    const dropdownColumns = document.querySelectorAll('.mobile-dropdown');
+    dropdownColumns.forEach(currentColumn => {
+        const title = currentColumn.querySelector('.dropdown-title');
+        const list = currentColumn.querySelector('.dropdown-list');
+        
+        if (title && list) {
+            title.addEventListener('click', function() {
+                dropdownColumns.forEach(otherColumn => {
+                    if (otherColumn !== currentColumn && otherColumn.classList.contains('open')) {
+                        otherColumn.classList.remove('open');
+                    }
+                });
+                currentColumn.classList.toggle('open');
+            });
+        }
+    });
+    
+    // SOLO para iOS móvil - Configuración simplificada que funcionaba
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isIOS && isMobile) {
+        console.log('iOS móvil detectado');
+        
+        // Solo aplicar font-size 16px a los inputs del formulario
+        const inputs = document.querySelectorAll('#miFormulario input, #miFormulario select, #miFormulario textarea');
+        inputs.forEach(input => {
+            input.style.fontSize = '16px';
+        });
+        
+        // Aplicar también al dropdown personalizado
+        const dropdownHeader = document.querySelector('.dropdown-header');
+        if (dropdownHeader) {
+            dropdownHeader.style.fontSize = '16px';
+        }
+    }
 });
+
 </script>
     </body>
     </html>
