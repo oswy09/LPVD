@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,6 @@
     <meta name="description" content="Adquiere el seguro de Vida Deudor de AXA COLPATRIA. Cubre el saldo de tu deuda caso de fallecimiento o incapacidad total y permanente. | Póliza VIM Deudor">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.woff2" type="font/woff2">
-    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.woff" type="font/woff">
-    <link rel="stylesheet" href="fonts/SourceSansPro-Regular.ttf" type="font/truetype">
-    <link rel="stylesheet" href="fonts/Publico_Banner_Web_Bold_Regular.woff2" type="font/woff2">
-    <link rel="stylesheet" href="fonts/Publico_Banner_Web_Bold_Regular.woff" type="font/woff">
     <link rel="stylesheet" href="assets/styles-icons.css">
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     <meta property="og:locale" content="es_ES">
@@ -58,45 +54,49 @@
 /* ================================ */
 /* 1. Fuentes Personalizadas        */
 /* ================================ */
-   
+
 /* Definición de la fuente Publico Headline Bold */
 @font-face {
     font-family: 'Publico Headline Web';
-    src: url('./fonts/PublicoHeadline-Bold-Web.woff2') format('woff2'),
-         url('./fonts/PublicoHeadline-Bold-Web.woff') format('woff');
+    src: url('https://res.cloudinary.com/ddqbnr9vo/raw/upload/v1750205331/PublicoHeadline-Bold-Web_nry0md.woff') format('woff'),
+         url('https://res.cloudinary.com/ddqbnr9vo/raw/upload/v1750205338/PublicoHeadline-Bold-Web_nphjdn.woff2') format('woff2'),
+         url('https://res.cloudinary.com/ddqbnr9vo/raw/upload/v1750205412/Publico_Banner_Web_Bold_Regular_qpj3p5.OTF') format('opentype'); /* Agregué .OTF y su formato */
     font-weight: 700;
     font-style: normal;
+    font-display: swap; /* Buena práctica para mejorar el rendimiento de carga de fuentes */
 }
-  
+
 /* Definición de la fuente Source Sans Pro Regular */
 @font-face {
     font-family: 'Source Sans Pro';
-    src: url('./fonts/SourceSansPro-Regular.woff2') format('woff2');  
-    font-weight: 400;
+    src: url('https://res.cloudinary.com/ddqbnr9vo/raw/upload/v1750205408/SourceSansPro-Regular_rgdf3d.ttf') format('truetype'); /* Solo tienes .ttf para esta en tus enlaces */
+    font-weight: 400; /* Regular */
     font-style: normal;
+    font-display: swap; /* Buena práctica para mejorar el rendimiento de carga de fuentes */
 }
-  
-/* Definición de la fuente Source Sans Pro SemiBold */
-@font-face {
+
+/* Nota: Para Source Sans Pro SemiBold, necesitarías subir el archivo correspondiente y crear otra regla @font-face */
+/* @font-face {
     font-family: 'Source Sans Pro';
-    src: url('./fonts/SourceSansPro-SemiBold.woff2') format('woff2');  
-    font-weight: 600;  
+    src: url('URL_SEMI_BOLD_WOFF2') format('woff2');
+    font-weight: 600;
     font-style: normal;
-}
-  
+    font-display: swap;
+} */
+
 /* Aplicar Publico Headline a los títulos */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Publico Headline Web', sans-serif;
+    font-family: 'Publico Headline Web', sans-serif; /* Mantenemos 'sans-serif' como fallback */
     font-weight: 700;
     font-style: normal;
 }
-  
+
 /* Aplicar Source Sans Pro al body y otros textos */
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400; /* Regular */
 }
-  
+
 p, a, li, span, div {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
@@ -700,7 +700,51 @@ textarea:focus {
     box-shadow: 0 0 5px #00008F;
     outline: none;
 }
+/* Estilos mejorados para checkboxes */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.3s ease;
+}
 
+/* Estado checked del checkbox */
+input[type="checkbox"]:checked {
+    background-color: #00008F;
+    border-color: #00008F;
+}
+
+/* Crear el "chulito" cuando está checked */
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Hover effect */
+input[type="checkbox"]:hover {
+    border-color: #00008F;
+    box-shadow: 0 0 3px rgba(0, 0, 143, 0.3);
+}
+
+/* Focus effect */
+input[type="checkbox"]:focus {
+    outline: none;
+    border-color: #00008F;
+    box-shadow: 0 0 5px rgba(0, 0, 143, 0.5);
+}
 /* Estilos para los errores  */
 .error-message {
     color: #C91432;
@@ -1396,7 +1440,61 @@ select:not(#Método\ de\ contacto) {
         </div>
     </form>
 </div>
+ <script id="smartcapture-script-h53y62haodu">
+ var scFormLoaded = function () {
+ 
+%%[
 
+SET @nombres = RequestParameter("nombres")
+SET @apellidos = RequestParameter("apellidos")
+SET @Correo = RequestParameter("Correo")
+SET @Celular = RequestParameter("Celular")
+
+SET @URL = CONCAT('https://online.axacolpatria.co/ThankYouPageVimDeudor?&nombres=',@nombres,'&apellidos=',@apellidos, '&Correo=', @Correo,'&Celular=', @Celular) 
+
+]%%   
+   window.ScForm.init({"gearID":"h53y62haodu","smartCaptureFormID":0,"sourceKey":"B31B0A84-9F86-4F5C-9C56-7C52C6A3451E","source":"dataExtension","triggeredSend":"","confirmationMessage":"Thank you for your submission.","buttonText":"Enviar","formStyling":{"background-color":"transparent","margin-top":"0px","margin-right":"0px","margin-bottom":"0px","margin-left":"0px","padding-top":"0px","padding-right":"0px","padding-bottom":"0px","padding-left":"0px","text-align":"left"},"fieldStyling":{"width":"200px"},"buttonStyling":{"background-color":"#009DDC","border-color":"#009DDC","border-radius":"3px","border-style":"solid","-webkit-border-radius":"3px","-moz-border-radius":"3px","color":"#FFFFFF","font-family":"Arial, Helvetica, sans-serif","font-size":"16px","line-height":"normal","padding":"10px"}, "onSubmitShouldGotoUrl":true,"onSubmitGotoUrlType":2,"onSubmitGotoUrl":"https://online.axacolpatria.co/ThankYouPageVimDeudor"});
+ };
+ var scAppDomain = 'cloudpages.mc-content.com';
+ var scAppBasePath = '/CloudPages';
+ (function () {
+  var appDomain = '<ctrl:eval>Platform.Variable.GetValue("@appDomain")</ctrl:eval>';
+  if (appDomain.indexOf('qa') !== -1) {
+   scAppDomain = 'cloudpages-qa.mc-content.com';
+   scAppBasePath = '/CloudPages_V1';
+  }
+ }());
+ window.appDomain = window.appDomain || scAppDomain;
+ window.contentDetail = window.contentDetail || <ctrl:eval>Platform.Variable.GetValue('@contentDetail')||{}</ctrl:eval>;
+ if (!window.ScForm || !window.ScForm.init) {
+  var head = document.getElementsByTagName('head')[0];
+  var id = 'smartcapture-formjs-script';
+  var script = document.getElementById(id);
+  var domain = window.appDomain;
+  var el;
+  if (!script) {
+   if (domain) {
+    domain = '//' + domain;
+   }
+   el = document.createElement('script');
+   el.async = true;
+   el.id = id;
+   el.src = domain + scAppBasePath + '/lib/smartcapture-formjs.js';
+   el.onload = scFormLoaded;
+   head.appendChild(el);
+  } else {
+   if (script.addEventListener) {
+    script.addEventListener('load', scFormLoaded);
+   } else if (script.attachEvent) {
+    script.attachEvent('onload', scFormLoaded);
+   }
+  }
+ } else {
+  scFormLoaded();
+ }
+</script>
+    </form>
+</div>
 <button id="botonUnirme" class="floating-button oculto">Quiero unirme</button>
 
  <!-- Footer Section -->
