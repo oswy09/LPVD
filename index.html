@@ -1232,7 +1232,44 @@ select:not(#Método\ de\ contacto) {
 
 
 /* Responsive */
-@media (max-width: 768px) {
+
+/* Pantallas medianas y grandes (650px - 1350px) */
+@media (min-width: 650px) and (max-width: 1350px) {
+    .container {
+        position: fixed;
+        bottom: 0;
+        right: 30px;
+        left: auto;
+        max-width: 32rem;
+        height: 80%;
+        margin: 5px 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        z-index: 9999;
+        box-sizing: border-box;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 0.5rem;
+    }
+
+    .container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .container::-webkit-scrollbar-thumb {
+        background-color: #b8b8b8;
+        border-radius: 4px;
+    }
+
+    .container {
+        scrollbar-width: thin;
+        scrollbar-color: #b8b8b8 transparent;
+    }
+}
+
+/* Móvil */
+@media (max-width: 649px) {
     .container {
         position: fixed;
         bottom: 0;
